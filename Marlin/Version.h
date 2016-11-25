@@ -36,7 +36,7 @@
    * Marlin release version identifier
    */
   //#define SHORT_BUILD_VERSION "1.1.0-RCBugFix"
-#define SHORT_BUILD_VERSION "1.1.0-RC7BF - Budget"
+#define SHORT_BUILD_VERSION "1.1.0-RC7BF - 20161125 aka Budget"
 
   /**
    * Verbose version identifier which should contain a reference to the location
@@ -49,7 +49,7 @@
    * here we define this default string as the date where the latest release
    * version was tagged.
    */
-  #define STRING_DISTRIBUTION_DATE "2016-07-26 12:00"
+  #define STRING_DISTRIBUTION_DATE "2016-11-25 02:00"
 
   /**
    * Required minimum Configuration.h and Configuration_adv.h file versions.
