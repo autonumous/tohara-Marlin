@@ -1184,7 +1184,7 @@ void kill_screen(const char* lcd_msg) {
     MENU_ITEM(back, MSG_MAIN);
 
     //
-    // Auto Home
+    // Auto Home 
     //
     MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
     #if ENABLED(INDIVIDUAL_AXIS_HOMING_MENU)
@@ -1192,6 +1192,19 @@ void kill_screen(const char* lcd_msg) {
       MENU_ITEM(gcode, MSG_AUTO_HOME_Y, PSTR("G28 Y"));
       MENU_ITEM(gcode, MSG_AUTO_HOME_Z, PSTR("G28 Z"));
     #endif
+
+    //
+    // Dock Extruder to waste box // 20161125 PB 
+    //
+      if (axis_homed[Z_AXIS]){
+        MENU_ITEM(gcode, "Dock Head", PSTR("G90\nT0\nG1 X70 Y200 F3000\nG1 Y240 F2000\nG1 E-4 F4500"));
+      }
+      else{
+        MENU_ITEM(gcode, "Dock Head", PSTR("G28\nG90\nG1 X70 Y200 F3000\nG1 Y240 F2000\nG1 E-4 F4500"));
+      }
+
+
+
 
     //
     // Set Home Offsets
@@ -1431,6 +1444,7 @@ void kill_screen(const char* lcd_msg) {
     if (_MOVE_XYZ_ALLOWED) {
       MENU_ITEM(submenu, MSG_MOVE_X, lcd_move_x);
       MENU_ITEM(submenu, MSG_MOVE_Y, lcd_move_y);
+      MENU_ITEM(submenu, MSG_MOVE_Z, lcd_move_z);  //20161125 PB Add z to 10 mm menu
     }
 
     if (move_menu_scale < 10.0) {
@@ -1487,6 +1501,16 @@ void kill_screen(const char* lcd_msg) {
     MENU_ITEM(submenu, MSG_MOVE_1MM, lcd_move_menu_1mm);
     MENU_ITEM(submenu, MSG_MOVE_01MM, lcd_move_menu_01mm);
     //TODO:X,Y,Z,E
+
+    //20161125 PB added menu option to drop bed to lower position.
+
+    if (axis_homed[Z_AXIS]) {
+      MENU_ITEM(gcode, "Move Z to 295", PSTR("G1 Z295 F3000"));
+    }
+    else {
+      MENU_ITEM(gcode, "Move Z to 295", PSTR("G28\nG1 Z295 F3000"));
+    }
+
     END_MENU();
   }
 
